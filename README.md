@@ -1,7 +1,8 @@
 # ofxWitmotion
 
 Witmotion addon for OpenFrameworks
-_Special thanks Qaotech Studio_
+
+_Development Support and special thanks Qaotech Studio_
 
 
 Ported from the official documentation example C++ code 
