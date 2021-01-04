@@ -180,3 +180,27 @@ void witmotionController::parseData(char chr) {
 
     chrCnt = 0;
 }
+
+void witmotionController::calibrateDevice() {
+    //0xFF 0xAA 0x01 CALSW 0x00
+}
+
+void witmotionController::setRefreshRate(int rate) {
+    /*
+     0xFF 0xAA 0x03 RATE 0x00
+     0x01:0.2Hz
+     0x02:0.5Hz
+     0x03:1Hz
+     0x04:2Hz
+     0x05:5Hz
+     0x06:10Hz(default)
+     0x07:20Hz
+     0x08:50Hz
+     0x09:100Hz
+     0x0a:125Hz
+     0x0b:200Hz
+     0x0c:Single
+     0x0d: No output
+     */
+}
+

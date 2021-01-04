@@ -66,9 +66,9 @@ public:
     float gyro_shift[3];
     float angle_shift[3];
     void resetOrientation();
-    
     void tare();
-    
+    void setRefreshRate(int rate);
+    void calibrateDevice();
     
     char r_buf[1024];
     
