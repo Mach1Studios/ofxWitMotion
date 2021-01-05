@@ -1,1 +1,1 @@
-ofxWitmotion
+ofxWitMotion
