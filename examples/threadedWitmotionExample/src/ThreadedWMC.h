@@ -60,9 +60,6 @@ public:
     }
 
     void update(){
-        // if we didn't lock here we would see
-        // tearing as the thread would be updating
-        // the pixels while we upload them to the texture
         std::unique_lock<std::mutex> lock(mutex);
         wmc.update();
         condition.notify_all();
