@@ -1,6 +1,8 @@
 //
 //  witmotionController.cpp
-//  Created by Qaotech Studio on 21/12/20.
+//  Created by Mach1 & Qaotech Studio on 21/12/20.
+//
+//  References can be found at https://wiki.wit-motion.com/english/doku.php?id=bluetooth_inclinometer
 //
 
 #include "witmotionController.h"
@@ -182,10 +184,13 @@ void witmotionController::parseData(char chr) {
 }
 
 void witmotionController::calibrateDevice() {
-    //0xFF 0xAA 0x01 CALSW 0x00
+    //TODO: Send three commands:
+    // 1. “0xFF 0xAA 0x69 0x88 0xB5” for unblocking the config of the sensor
+    // 2. “0xFF 0xAA 0x01 0x01 0x00” for calibration of acceleration
+    // 3. “0xFF 0xAA 0x00 0x00 0x00” for saving the config (reference: changing the second to last byte to 0x01 sets to default settings)
 }
 
-void witmotionController::setRefreshRate(int rate) {
+void witmotionController::setRefreshRate(char rate = 0x0b) {
     /*
      0xFF 0xAA 0x03 RATE 0x00
      0x01:0.2Hz
@@ -202,5 +207,13 @@ void witmotionController::setRefreshRate(int rate) {
      0x0c:Single
      0x0d: No output
      */
+    char data[5] = { static_cast<char>(0xff), static_cast<char>(0xAA), 0x03, static_cast<char>(rate & 0xFF), static_cast<char>((rate>>8 & 0xFF)) };
+    serial.writeBytes(data, 5);
+    
+    //TODO: confirm by reading next bytes for:
+    //0x55 0x5F 0xRATE
+    
+    char saveCommand[5] = { static_cast<char>(0xFF), static_cast<char>(0xAA), 0x00, 0x00, 0x00 };
+    serial.writeBytes(saveCommand, 5);
 }
 
