@@ -14,7 +14,7 @@
 class ThreadedWMC: public ofThread
 {
 public:
-    witmotionController wmc;
+	witmotionController wmc;
 
     ~ThreadedWMC(){
         stop();
@@ -23,7 +23,6 @@ public:
 
     void setup(){
         wmc.setup();
-        wmc.setRefreshRate(0x0b);
         start();
     }
 
@@ -33,41 +32,16 @@ public:
     }
 
     void stop(){
-        std::unique_lock<std::mutex> lck(mutex);
         stopThread();
-        condition.notify_all();
     }
 
     void threadedFunction(){
         while(isThreadRunning()){
-            // since we are only writting to the frame number from one thread
-            // and there's no calculations that depend on it we can just write to
-            // it without locking
-            threadFrameNum++;
-
-            // Lock the mutex until the end of the block, until the closing }
-            // in which this variable is contained or we unlock it explicitly
-            std::unique_lock<std::mutex> lock(mutex);
-
-            // The mutex is now locked so we can modify
-            // the shared memory without problem
-
-            // Now we wait for the main thread to finish
-            // with this frame until we can generate a new one
-            // This sleeps the thread until the condition is signaled
-            // and unlocks the mutex so the main thread can lock it
-            condition.wait(lock);
+			if (wmc.isConnected) {
+				wmc.update();
+				threadFrameNum++;
+			}
         }
-    }
-
-    void update(){
-        std::unique_lock<std::mutex> lock(mutex);
-        wmc.update();
-        condition.notify_all();
-    }
-
-    void updateNoLock(){
-        condition.notify_all();
     }
 
     int getThreadFrameNum(){
@@ -75,7 +49,6 @@ public:
     }
     
 protected:
-    std::condition_variable condition;
     int threadFrameNum = 0;
 };
 

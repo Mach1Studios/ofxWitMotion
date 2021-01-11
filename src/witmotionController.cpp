@@ -47,7 +47,7 @@ void witmotionController::connectDevice(int deviceID){
     
     //flush the serial port once before we start
     serial.flush();
-    bzero(r_buf, 1024);
+    memset(r_buf, 0, 1024);
 }
 
 
@@ -134,9 +134,12 @@ float* witmotionController::getMagneticField() {
 }
 
 int witmotionController::recvData(char *recv_buffer, int length) {
-    long retLength = serial.readBytes(recv_buffer, length);
-    int len = ofToInt(ofToString(retLength));
-    return len;
+	if (serial.available() >= length) {
+		long retLength = serial.readBytes(recv_buffer, length);
+		int len = ofToInt(ofToString(retLength));
+		return len;
+	}
+	return 0;
 }
 
 void witmotionController::parseData(char chr) {
