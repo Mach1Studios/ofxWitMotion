@@ -134,12 +134,9 @@ float* witmotionController::getMagneticField() {
 }
 
 int witmotionController::recvData(char *recv_buffer, int length) {
-	if (serial.available() >= length) {
-		long retLength = serial.readBytes(recv_buffer, length);
-		int len = ofToInt(ofToString(retLength));
-		return len;
-	}
-	return 0;
+    long retLength = serial.readBytes(recv_buffer, length);
+    int len = ofToInt(ofToString(retLength));
+    return len;
 }
 
 void witmotionController::parseData(char chr) {

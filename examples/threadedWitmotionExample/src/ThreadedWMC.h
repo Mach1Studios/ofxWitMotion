@@ -23,6 +23,7 @@ public:
 
     void setup(){
         wmc.setup();
+        wmc.setRefreshRate(0x0b);
         start();
     }
 
