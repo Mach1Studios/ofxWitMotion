@@ -13,7 +13,7 @@
 #include <sys/types.h>
 #include <errno.h>
 
-#define BAUD 9600 //115200 for JY61 ,9600 for others
+#define BAUD 115200
 
 class witmotionController {
 public: 
