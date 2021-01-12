@@ -47,7 +47,7 @@ void witmotionController::connectDevice(int deviceID){
     
     //flush the serial port once before we start
     serial.flush();
-    bzero(r_buf, 1024);
+    memset(r_buf, 0, 1024);
 }
 
 

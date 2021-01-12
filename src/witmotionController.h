@@ -4,14 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <assert.h>
-#include <termios.h>
 #include <string.h>
-#include <sys/time.h>
 #include <time.h>
 #include <sys/types.h>
 #include <errno.h>
+
+#ifndef WIN32
+#include <unistd.h>
+#include <termios.h>
+#include <sys/time.h>
+#endif
 
 #define BAUD 115200
 
