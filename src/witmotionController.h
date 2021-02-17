@@ -69,7 +69,7 @@ public:
     float gyro_shift[3];
     float angle_shift[3];
     void resetOrientation();
-    void tare();
+    void recenter();
     void setRefreshRate(char rate);
     void calibrateDevice();
     

@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     wmc.setup();
+    wmc.setRefreshRate(0x0b);
 }
 
 //--------------------------------------------------------------
@@ -14,8 +15,6 @@ void ofApp::update(){
 void ofApp::draw(){
     ofSetBackgroundColor(30);
     
-    
-    
     if(!wmc.isConnected){
         ofSetColor(255);
         for(int i = 0; i < wmc.deviceIDs.size(); i++){
@@ -26,17 +25,6 @@ void ofApp::draw(){
         ofPushMatrix();
         ofNoFill();
         ofTranslate(ofGetWidth()*.5, ofGetHeight()*.5, 0);
-        
-//        // draw axis lines
-//        float l = 500;
-//        ofSetColor(255, 0, 0);
-//        ofDrawLine(0, 0, 0, l, 0, 0);
-//
-//        ofSetColor(0, 255, 0);
-//        ofDrawLine(0, 0, 0, 0, l, 0);
-//
-//        ofSetColor(0, 0, 255);
-//        ofDrawLine(0, 0, 0, 0, 0, l);
         
         // rotate
         float* a = wmc.getAngle();
@@ -98,15 +86,6 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-//    if (!wmc.isConnected) {
-//        for(int i = 0; i < wmc.deviceIDs.size(); i++){
-//            float posY = i * 100;
-//            if(x > 100 && y < posY + 100 && y > posY ){
-//                wmc.connectDevice(i);
-//            }
-//        }
-//    }
-    
     //reset orientation
     wmc.tare();
 }

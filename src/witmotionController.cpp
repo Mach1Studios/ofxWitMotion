@@ -66,7 +66,7 @@ void witmotionController::resetOrientation(){
     }
 }
 
-void witmotionController::tare(){
+void witmotionController::recenter(){
     // angle tare
     float* swpAngle = getAngle();
     angle_shift[1] = angle_shift[1] - swpAngle[0];
